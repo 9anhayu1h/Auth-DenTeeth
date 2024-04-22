@@ -1,57 +1,69 @@
 package com.example.springboot.User;
 
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "user") // Specify the table name explicitly
 public class User {
-    private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    private long id; // Use a larger data type (long) for the primary key
+
     private String name;
     private String email;
-    private int age;
+    private String password; // Use String for password (assuming it's stored securely)
 
     public User() {
+        // Default constructor required by JPA
     }
 
-    public User(long id, String name, String email, int age) {
+    public User(long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.password = password;
     }
 
-    public User(String name, String email, int age) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.password = password;
     }
 
-    public void SetId(long id) {
-        this.id = id;
-    }
-
+    // Getters and setters (follow camelCase naming convention)
     public long getId() {
         return id;
     }
 
-    public void SetName(String name) {
-        this.name = name;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void SetEmail(String email) {
-        this.email = email;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void SetAge(int age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -60,8 +72,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", age=" + age +
+                ", password='" + password + '\'' + // Ensure password is included in quotes
                 '}';
     }
-    
 }
